@@ -1,0 +1,32 @@
+.container {
+    padding-left: 5vw;
+    padding-right: 5vw;
+    width: 90vw;
+    height: 100vw;
+}
+
+.timeline {
+    position: relative;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: red;
+    opacity: .7;
+    height: 500px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.task {
+    position: absolute;
+    height: 40px;
+    background: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+
+.task__name {
+    color: black;
+}
