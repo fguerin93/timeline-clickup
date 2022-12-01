@@ -6437,8 +6437,8 @@ const felix = [
 	}
 ]
 
-const dayHours = 8
-const dayStart = 9.75
+const dayHours = 10
+const dayStart = 9
 
 const timeToDecimal = (t) => {
     let arr = t.split(':');
@@ -6470,41 +6470,29 @@ const convert = (timestamp) => {
 }
 
 
-for (let i = 0; i < 29; i++) {
+for (let i = 0; i < 32; i++) {
     const timeline = document.querySelector(`.timeline-${i+1}`)
     const found = felix.filter(element => Number(getTaskDay(element)) == i);
-	console.log(found.length)
     if(found.length > 0) {
-		timeline.innerHTML = `<p style="position: absolute; left: -90px;">Jour ${i}/11</p>`
+		timeline.innerHTML = `<p class="timeline__day">Jour ${i}/11</p>`
         for (let j = 0; j < found.length; j++) {
             let taskTime = calculTaskTime(convert(found[j]["Start"]), convert(found[j]["Stop"]))
-            let width = (taskTime / dayHours) * 100
-            let left = (calculStartHour(convert(found[j]["Start"])) / dayHours) * 100
-            const taskHtml = `
-                <div class="task" style="top: ${j * 40}px; width: ${width}%; left:${left}%">
-                    <p class="task__name">
-                        ${found[j]['Task Name']}
-                    </p>
-                </div>
-            `
-            timeline.innerHTML += taskHtml
+			if(taskTime > 0.1) {
+				let width = (taskTime / dayHours) * 100
+				let left = (calculStartHour(convert(found[j]["Start"])) / dayHours) * 100
+				const taskHtml = `
+				<div class="task">
+					<div class="task__time" style="width: ${width}%; left:${left}%">
+					</div>
+					<p class="task__name" style="left:${left}%">
+						${found[j]['Task Name']}
+					</p>
+				</div>
+				`
+				timeline.innerHTML += taskHtml
+			}
         }
     } else {
-		timeline.style.display = 'none'
+		timeline.classList.add('d-none')
 	}
 }
-
-// for (let i = 0; i < felix.length; i++) {
-//     let taskTime = calculTaskTime(tasks[i].start_date, tasks[i].end_date)
-//     let width = (taskTime / dayHours) * 100
-//     let left = (calculStartHour(tasks[i].start_date) / dayHours) * 100
-//     console.log(width, calculStartHour(tasks[i].start_date) * 100)
-//     const taskHtml = `
-//         <div class="task" style="top: ${i * 40}px; width: ${width}%; left:${left}%">
-//             <p class="task__name">
-//                 ${tasks[i].name}
-//             </p>
-//         </div>
-//     `
-//     timeline.innerHTML += taskHtml
-// }
